@@ -1,210 +1,143 @@
-\# Airflow ETL Pipeline Project
+# Airflow ETL Pipeline (API → Data Lake → PostgreSQL)
 
+## 📌 Project Overview
 
+This project demonstrates an **end-to-end ETL pipeline using Apache Airflow, Docker, and PostgreSQL**.
 
-\## Project Overview
+The pipeline extracts user data from a public API, stores the raw data in a data lake (JSON), transforms the data using Python, and loads the processed data into a PostgreSQL database.
 
-This project demonstrates a simple \*\*Data Engineering ETL pipeline\*\* using Apache Airflow, Docker, and PostgreSQL.
+Apache Airflow orchestrates the workflow using DAGs, ensuring the pipeline runs in a structured and automated way.
 
+---
 
+## 🛠️ Technologies Used
 
-The pipeline extracts user data from a public API, transforms it, and loads it into a PostgreSQL database.
+* Apache Airflow
+* Docker & Docker Compose
+* Python
+* PostgreSQL
+* REST API
+* Pandas
 
+---
 
+## 🏗️ Architecture
 
-\---
+```
+Random User API
+        │
+        ▼
+Apache Airflow DAG
+        │
+        ▼
+Data Extraction Script
+(api_extract.py)
+        │
+        ▼
+Data Lake (JSON File)
+raw_user.json
+        │
+        ▼
+Data Transformation Script
+(spark_etl.py)
+        │
+        ▼
+PostgreSQL Database
+users_data Table
+```
 
+---
 
+## 🔄 ETL Workflow
 
-\## Tech Stack
+1️⃣ Extract
+Fetch user data from the **Random User API**.
 
+2️⃣ Store Raw Data
+Save the raw JSON data into the **data_lake folder**.
 
+3️⃣ Transform
+Process the JSON data and extract relevant user fields.
 
-\- Apache Airflow
+4️⃣ Load
+Insert the processed data into the **PostgreSQL database table**.
 
-\- Docker \& Docker Compose
+---
 
-\- Python
+## 📊 Airflow DAG Tasks
 
-\- PostgreSQL
+### extract_api
 
-\- REST API
+Extracts data from the API and stores raw JSON data in the data lake.
 
-\- Pandas
+### transform_data
 
+Transforms the raw data and loads it into PostgreSQL.
 
+---
 
-\---
+## 📁 Project Structure
 
-
-
-\## Project Architecture
-
-
-
-API → Airflow DAG → Data Lake → Transformation → PostgreSQL Database
-
-
-
-\---
-
-
-
-\## Workflow
-
-
-
-1\. \*\*Extract\*\*
-
-&#x20;  - Fetch user data from Random User API
-
-
-
-2\. \*\*Store Raw Data\*\*
-
-&#x20;  - Save raw JSON data into the data lake
-
-
-
-3\. \*\*Transform\*\*
-
-&#x20;  - Process JSON data and extract required fields
-
-
-
-4\. \*\*Load\*\*
-
-&#x20;  - Insert transformed data into PostgreSQL database
-
-
-
-\---
-
-
-
-\## Project Structure
-
+```
 airflow-etl-pipeline
-
 │
-
 ├── dags
-
-│ └── etl\_pipeline.py
-
+│   └── etl_pipeline.py
 │
-
 ├── scripts
-
-│ ├── api\_extract.py
-
-│ └── spark\_etl.py
-
+│   ├── api_extract.py
+│   └── spark_etl.py
 │
-
-├── data\_lake
-
-│ └── raw\_user.json
-
+├── data_lake
+│   └── raw_user.json
 │
-
 ├── docker-compose.yaml
-
 ├── README.md
-
 └── .gitignore
+```
 
+---
 
+## ▶️ How to Run the Project
 
+Start Docker containers:
 
-
-\---
-
-
-
-\## DAG Tasks
-
-
-
-\### extract\_api
-
-Extracts data from the API and stores it in the data lake.
-
-
-
-\### transform\_data
-
-Transforms the raw JSON data and loads it into PostgreSQL.
-
-
-
-\---
-
-
-
-\## How to Run
-
-
-
-Start the containers:
-
+```
 docker compose up -d
-
-
+```
 
 Open Airflow UI:
 
-
-
+```
 http://localhost:8080
+```
 
+Login credentials:
 
-
-Login:
-
+```
 username: airflow
-
 password: airflow
-
-
-
-
+```
 
 Trigger the DAG:
 
+```
+etl_pipeline
+```
 
+---
 
-etl\_pipeline
+## 📈 Future Improvements
 
+* Integrate AWS S3 as the data lake
+* Use Apache Spark for large-scale transformations
+* Store processed data in AWS RDS
+* Add monitoring and alerting
 
+---
 
+## 👩‍💻 Author
 
+**Nikita Buva**
 
-\---
-
-
-
-\## Future Improvements
-
-
-
-\- Add AWS S3 as data lake
-
-\- Use Spark for transformation
-
-\- Store processed data in AWS RDS
-
-\- Add monitoring and logging
-
-
-
-\---
-
-
-
-\## Author
-
-
-
-Nikitabuva
-
+Data Engineering Project using Apache Airflow
